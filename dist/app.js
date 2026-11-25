@@ -89,7 +89,7 @@ const verified = {
   "等待耶誕節的24個故事": { author: "思爾薇．波樂威／艾希克．葛斯戴（圖）", cover: "assets/covers-new/0010566161.webp", summary: "麻雀阿捷和小不點伯爵每天說一個故事，和朋友一起度過等待耶誕節的二十四天，練習期待與耐心。", source: "https://www.books.com.tw/products/0010566161" },
   "雪地裡的腳印": { author: "松岡芽衣（文／圖）", cover: "assets/covers-new/0010387974.webp", summary: "雪地裡一串串腳印，帶出好狼想改變大家印象的故事，引導孩子思考自我認同與對他人的刻板印象。", source: "https://www.books.com.tw/products/0010387974" },
   "葛莉兒的聖誕襪": { author: "伊莉莎白．溫若瑟／劉清彥（譯）", cover: "assets/covers-new/0010385774.webp", summary: "葛莉兒辛苦織好自己的襪子，卻在雪地遇見更需要溫暖的男孩。故事把聖誕襪化為給予與關懷的象徵。", source: "https://www.books.com.tw/products/0010385774" },
-  "寄信給耶誕老公公": { author: "方素珍／郝洛玟（圖）", cover: "assets/covers-new/0011066307.webp", summary: "哥哥和妹妹從搶蠟筆的小衝突出發，一起畫畫、寫信給耶誕老公公，也在相處中學會分享與陪伴。", source: "https://www.books.com.tw/products/0011066307" },
+  "寄信給耶誕老公公": { author: "方素珍／郝洛玟（圖）", cover: "assets/covers-new/0011066307.webp", summary: "哥哥和妹妹從搶蠟筆的小衝突出發，一起畫畫、寫信給耶誕老公公，也在相處中學會分享與陪伴。", source: "https://www.books.com.tw/products/0011066307?sloc=main" },
   "冬日的舞會": { author: "林以維／魏敬學（圖）", cover: "assets/covers-new/0010524030.webp", summary: "蟲蟲村舉辦冬日舞會，怕被嘲笑的蜻蜓胖胖躲在家裡。朋友的關心與鼓勵，陪他找回參與的勇氣。", source: "https://www.books.com.tw/products/0010524030" },
   "真的有聖誕老公公嗎？": { author: "暉峻淑子", cover: "assets/covers-new/0010505386.webp", summary: "孩子在洗澡時連珠炮似地提問：聖誕老公公從哪裡來、夏天在做什麼？親子對話保留了好奇與想像。", source: "https://www.books.com.tw/products/0010505386" },
   "空空的聖誕襪": { author: "理察．柯提斯／蕾貝卡．寇柏（圖）", cover: "assets/covers-new/0011035818.webp", summary: "一對雙胞胎的聖誕襪被弄錯，頑皮的孩子發現姊妹的襪子空空如也，必須做出關於分享與手足之愛的選擇。", source: "https://www.books.com.tw/products/0011035818" },
