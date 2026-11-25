@@ -146,10 +146,19 @@ const verified = {
   "小毛，聖誕節到了！": { author: "大衛．夏儂（文／圖）", cover: "assets/covers-new/0010734911.webp", summary: "小毛非常期待聖誕節，列出長長的禮物清單，卻還是爬高、偷看禮物，差點弄倒聖誕樹。調皮的他最後仍收到一份意想不到的驚喜。", source: "https://www.books.com.tw/products/0010734911" }
 };
 
+const ageGroups = {
+  "幼兒": ["褲子的聖誕節", "聖誕老人送禮物", "聖誕樹驚喜", "耶誕快樂！貓咪雷弟", "聖誕節的禮物", "小鼴鼠妙妙過耶誕節", "奇普的下雪天", "寄信給耶誕老公公", "真的有聖誕老公公嗎？", "你能找到聖誕老公公的內褲嗎?", "小馴鹿的超級聖誕任務", "小熊聖誕大尋寶", "聖誕老公公是怎麼鑽進煙囪的？", "小兔彼得過聖誕：聖誕節倒數月曆", "鱷魚愛上長頸鹿5：好忙好忙的聖誕節", "小小人兒來幫忙：耶誕節來了", "100個耶誕老公公", "耶誕快樂,工程車!", "和耶誕老人一起跳舞", "雪人", "好餓好餓的聖誕老公公", "100個耶誕老公公的12個月", "小雞過耶誕節", "誰吃掉了聖誕節！？", "魯奇歐與呼哩呼哩：第一次過聖誕節耶！", "達摩小小倒數聖誕節", "搶救聖誕節", "聖誕節，藏在小事裡", "傑琪的聖誕節", "小毛，聖誕節到了！"],
+  "低年級": ["威洛比先生的耶誕樹", "聖誕老公公不見了", "莉塔和那個那個的聖誕節（新版）", "紅鬍子－耶誕節", "雪地裡的腳印", "葛莉兒的聖誕襪", "大頭 最棒的聖誕禮物", "冬日的舞會", "聖誕夜：分享的喜悅", "空空的聖誕襪", "我想守護小小聖誕樹", "7歲名偵探小福爾摩斯:誰偷走聖誕樹?", "善良，聖誕節最好的禮物", "土地爺爺過聖誕", "千千萬萬個聖誕老公公", "我與暴龍與聖誕節", "聖誕老人的第一個聖誕節", "我想當聖誕樹", "聖誕小鼠出任務", "來不及啦聖誕節", "好小好小的聖誕禮物", "聖誕老婆婆", "一個不能沒有禮物的日子", "大聖誕老公公和小聖誕老公公", "聖誕老公公要罷工！", "分享手作禮物的聖誕節", "恐龍男孩迪倫救了聖誕節", "搶救聖誕節：解謎故事大冒險", "小老鼠的聖誕節", "星星女孩與森林裡的聖誕節", "巫婆阿妮過聖誕節"],
+  "中年級": ["瑪格麗特的聖誕節", "等待耶誕節的24個故事", "蘋果樹小女巫3：特別的聖誕節", "我是聖誕樹", "下雪日的約定", "露露菈菈的美味聖誕節"],
+  "高年級": ["智慧的聖誕禮物", "瘋狂樹屋156層：搶救聖誕節大作戰"],
+  "國中以上": ["都市傳說8：聖誕老人（十周年機密檔案限量典藏版＋番外篇）"]
+};
+const ageByTitle = Object.fromEntries(Object.entries(ageGroups).flatMap(([age, titles]) => titles.map(title => [title, age])));
+
 const books = rawBooks.trim().split("\n").map((line, index) => {
   const [title, publisher, theme] = line.split("|");
   const detail = verified[title] || {};
-  return { id: index + 1, title, publisher, theme, author: detail.author || "待實體書版權頁確認", summary: detail.summary || "館藏清單僅提供書名或分類資料，目前無法可靠確認版本。請查看實體書版權頁的 ISBN、作者與出版社後補充。", cover: detail.cover || "", source: detail.source || "", verified: detail.verified ?? Boolean(detail.author && detail.summary) };
+  return { id: index + 1, title, publisher, theme, ageGroup: ageByTitle[title] || "待確認", author: detail.author || "待實體書版權頁確認", summary: detail.summary || "館藏清單僅提供書名或分類資料，目前無法可靠確認版本。請查看實體書版權頁的 ISBN、作者與出版社後補充。", cover: detail.cover || "", source: detail.source || "", verified: detail.verified ?? Boolean(detail.author && detail.summary) };
 });
 
 const quizQuestions = [
@@ -203,10 +212,10 @@ const quizProfiles = {
   wonder: { title: "星光想像家", text: "你的想像力像冬夜星光一樣閃亮，喜歡安靜感受畫面與故事留下的餘韻。溫柔又帶著魔法感的書，會陪你走得很遠。", book: "星星女孩與森林裡的聖誕節" }
 };
 
-const state = { search: "", status: "all", theme: "全部", list: new Set(JSON.parse(localStorage.getItem("christmasReadingList") || "[]")) };
+const state = { search: "", status: "all", age: "all", theme: "全部", list: new Set(JSON.parse(localStorage.getItem("christmasReadingList") || "[]")) };
 const els = {
   grid: document.querySelector("#bookGrid"), featured: document.querySelector("#featuredGrid"), result: document.querySelector("#resultCount"), empty: document.querySelector("#emptyState"),
-  search: document.querySelector("#searchInput"), status: document.querySelector("#statusFilter"), themes: document.querySelector("#themeFilters"),
+  search: document.querySelector("#searchInput"), status: document.querySelector("#statusFilter"), age: document.querySelector("#ageFilter"), themes: document.querySelector("#themeFilters"),
   dialog: document.querySelector("#bookDialog"), dialogContent: document.querySelector("#dialogContent"), readingDialog: document.querySelector("#readingDialog"), readingItems: document.querySelector("#readingListItems"), listCount: document.querySelector("#listCount")
 };
 const quizEls = {
@@ -230,7 +239,7 @@ function bookCard(book) {
     <div class="cover-wrap">${coverMarkup(book)}<span class="status-badge">${book.verified ? "資料已查證" : (book.cover ? "封面已核對" : "待確認")}</span>
       <button class="favorite-button ${saved ? "active" : ""}" data-favorite="${book.id}" type="button" aria-label="${saved ? "從" : "加入"}閱讀清單" aria-pressed="${saved}">${saved ? "★" : "☆"}</button>
     </div>
-    <div class="book-body"><h3>${escapeHTML(book.title)}</h3><p class="book-meta">${escapeHTML(book.author)}</p><p class="book-meta">${escapeHTML(book.publisher)}</p></div>
+    <div class="book-body"><p class="age-label">${escapeHTML(book.ageGroup)}</p><h3>${escapeHTML(book.title)}</h3><p class="book-meta">${escapeHTML(book.author)}</p><p class="book-meta">${escapeHTML(book.publisher)}</p></div>
     <div class="book-actions"><button class="detail-button" data-detail="${book.id}" type="button">看書籍簡介</button></div>
   </article>`;
 }
@@ -239,7 +248,8 @@ function filteredBooks() {
   return books.filter(book => {
     const haystack = `${book.title} ${book.author} ${book.publisher}`.toLowerCase();
     const statusMatch = state.status === "all" || (state.status === "verified" && book.verified) || (state.status === "cover" && book.cover) || (state.status === "pending" && !book.verified);
-    return haystack.includes(q) && statusMatch && (state.theme === "全部" || book.theme === state.theme);
+    const ageMatch = state.age === "all" || book.ageGroup === state.age;
+    return haystack.includes(q) && statusMatch && ageMatch && (state.theme === "全部" || book.theme === state.theme);
   });
 }
 function renderBooks() {
@@ -262,7 +272,7 @@ function openBook(id) {
   const book = books.find(item => item.id === Number(id)); if (!book) return;
   els.dialogContent.innerHTML = `<div class="dialog-layout"><div class="dialog-cover">${coverMarkup(book, true)}</div><div class="dialog-info">
     <p class="section-kicker">${escapeHTML(book.theme)}</p><h2 id="dialogTitle">${escapeHTML(book.title)}</h2>
-    <dl class="dialog-meta"><dt>作者</dt><dd>${escapeHTML(book.author)}</dd><dt>出版社</dt><dd>${escapeHTML(book.publisher)}</dd><dt>資料狀態</dt><dd>${book.verified ? "已由公開資料查證" : "待實體書確認"}</dd></dl>
+    <dl class="dialog-meta"><dt>作者</dt><dd>${escapeHTML(book.author)}</dd><dt>出版社</dt><dd>${escapeHTML(book.publisher)}</dd><dt>建議年段</dt><dd>${escapeHTML(book.ageGroup)}</dd><dt>資料狀態</dt><dd>${book.verified ? "已由公開資料查證" : "待實體書確認"}</dd></dl>
     <div class="dialog-summary"><h3>書籍簡介</h3><p>${escapeHTML(book.summary)}</p></div>
     ${book.source ? `<a class="source-link" href="${book.source}" target="_blank" rel="noopener">查看資料來源</a>` : ""}
     ${book.verified ? "" : `<p class="pending-note">同名書或不同版本可能有不同作者與出版社，為避免誤配，請以館藏實體書版權頁為準。</p>`}
@@ -335,7 +345,8 @@ document.addEventListener("click", event => {
 document.addEventListener("keydown", event => { const card = event.target.closest(".featured-card"); if (card && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); openBook(card.dataset.detail); } });
 els.search.addEventListener("input", event => { state.search = event.target.value.trim(); renderBooks(); });
 els.status.addEventListener("change", event => { state.status = event.target.value; renderBooks(); });
-document.querySelector("#clearFilters").addEventListener("click", () => { state.search = ""; state.status = "all"; state.theme = "全部"; els.search.value = ""; els.status.value = "all"; renderThemes(); renderBooks(); });
+els.age.addEventListener("change", event => { state.age = event.target.value; renderBooks(); });
+document.querySelector("#clearFilters").addEventListener("click", () => { state.search = ""; state.status = "all"; state.age = "all"; state.theme = "全部"; els.search.value = ""; els.status.value = "all"; els.age.value = "all"; renderThemes(); renderBooks(); });
 document.querySelector("#closeDialog").addEventListener("click", () => els.dialog.close());
 document.querySelector("#openReadingList").addEventListener("click", openReadingList);
 document.querySelector("#closeReadingList").addEventListener("click", () => els.readingDialog.close());
