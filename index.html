@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="聖誕節主題館藏書展：探索繪本、故事與冬日閱讀驚喜。">
+  <meta name="theme-color" content="#083f33">
+  <title>聖誕閱讀奇遇｜聖誕節書展</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#books">跳到書目</a>
+  <header class="hero">
+    <nav class="nav" aria-label="主要導覽">
+      <a class="brand" href="#top" aria-label="回到頁首"><span aria-hidden="true">✦</span> 聖誕閱讀奇遇</a>
+      <div class="nav-links">
+        <a href="#quiz">心理測驗</a>
+        <a href="#featured">精選好書</a>
+        <a href="#books">全部書目</a>
+        <button class="list-button" id="openReadingList" type="button">我的閱讀清單 <span id="listCount">0</span></button>
+      </div>
+    </nav>
+    <div class="hero-art" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow">WINTER READING FESTIVAL</p>
+        <h1>翻開一本書，<br>遇見聖誕驚喜</h1>
+        <p class="hero-lead">從神祕的聖誕任務，到最溫暖的分享與陪伴。選一本想讀的書，讓故事點亮冬日時光。</p>
+        <a class="primary-button" href="#books">開始選書</a>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="書展資料摘要">
+      <div><strong id="uniqueCount">70</strong><span>個不重複書名</span></div>
+      <div><strong id="coverCount">0</strong><span>本已有書籍封面</span></div>
+      <div><strong id="verifiedCount">0</strong><span>本已有完整資料</span></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="introTitle">
+      <div>
+        <p class="section-kicker">一場為孩子準備的閱讀探險</p>
+        <h2 id="introTitle">今年聖誕節，你想走進哪一種故事？</h2>
+      </div>
+      <p>找找看、解任務、認識善良與分享，也可以觀察雪地裡的小祕密。點選書卡看簡介，按下星星把想讀的書加入清單。</p>
+    </section>
+
+    <section class="quiz-section" id="quiz" aria-labelledby="quizTitle">
+      <div class="quiz-visual" role="img" aria-label="兩位孩子在聖誕樹旁閱讀發光的故事書"></div>
+      <div class="quiz-shell">
+        <div class="quiz-start" id="quizStart">
+          <p class="section-kicker">聖誕閱讀心理測驗</p>
+          <h2 id="quizTitle">哪一本聖誕書，正在等你？</h2>
+          <p>跟著直覺選出最像你的答案，完成 4 個小情境，就能找到最適合你此刻心情的一本館藏書。</p>
+          <button class="primary-button" id="startQuiz" type="button">開始測驗</button>
+          <small>這是趣味閱讀偏好測驗，不是專業心理評估。</small>
+        </div>
+
+        <div class="quiz-question" id="quizQuestion" hidden>
+          <div class="quiz-progress-row">
+            <span id="quizProgressText">第 1 題，共 4 題</span>
+            <button class="text-button" id="restartQuizTop" type="button">重新開始</button>
+          </div>
+          <div class="quiz-progress" aria-hidden="true"><span id="quizProgressBar"></span></div>
+          <h3 id="quizQuestionTitle" tabindex="-1"></h3>
+          <div class="quiz-options" id="quizOptions" role="group" aria-labelledby="quizQuestionTitle"></div>
+        </div>
+
+        <div class="quiz-result" id="quizResult" hidden aria-live="polite">
+          <p class="section-kicker">你的聖誕閱讀心型</p>
+          <h2 id="quizProfileTitle" tabindex="-1"></h2>
+          <p id="quizProfileText"></p>
+          <div class="quiz-book" id="quizBook"></div>
+          <div class="quiz-result-actions">
+            <button class="primary-button" id="quizDetailButton" type="button">查看書籍簡介</button>
+            <button class="secondary-button" id="quizAddButton" type="button">加入閱讀清單</button>
+            <button class="text-button" id="restartQuiz" type="button">再測一次</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-section" id="featured" aria-labelledby="featuredTitle">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">已查證精選</p>
+          <h2 id="featuredTitle">先從這些好書開始</h2>
+        </div>
+        <p>封面、作者與出版社已有可核對來源。</p>
+      </div>
+      <div class="featured-grid" id="featuredGrid"></div>
+    </section>
+
+    <section class="catalogue" id="books" aria-labelledby="catalogueTitle">
+      <div class="catalogue-heading">
+        <div>
+          <p class="section-kicker">館藏書目</p>
+          <h2 id="catalogueTitle">找到你的下一本書</h2>
+        </div>
+        <p id="resultCount" role="status" aria-live="polite"></p>
+      </div>
+      <div class="toolbar" aria-label="書目篩選工具">
+        <label class="search-box">
+          <span class="sr-only">搜尋書名、作者或出版社</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.3-4.3m2.3-5.2A7.5 7.5 0 1 1 4 11.5a7.5 7.5 0 0 1 15 0Z"/></svg>
+          <input id="searchInput" type="search" placeholder="搜尋書名、作者或出版社">
+        </label>
+        <label class="select-wrap">
+          <span class="sr-only">篩選資料狀態</span>
+          <select id="statusFilter">
+            <option value="all">全部資料狀態</option>
+            <option value="verified">資料已查證</option>
+            <option value="cover">已有封面</option>
+            <option value="pending">待實體書確認</option>
+          </select>
+        </label>
+        <button class="secondary-button" id="clearFilters" type="button">清除篩選</button>
+      </div>
+      <div class="filter-chips" id="themeFilters" aria-label="主題篩選"></div>
+      <div class="book-grid" id="bookGrid"></div>
+      <div class="empty-state" id="emptyState" hidden>
+        <span aria-hidden="true">❄</span>
+        <h3>暫時找不到符合的書</h3>
+        <p>換一個關鍵字，或清除篩選再看看。</p>
+      </div>
+    </section>
+
+    <section class="reading-prompt" aria-labelledby="promptTitle">
+      <div class="prompt-icon" aria-hidden="true">✦</div>
+      <div>
+        <p class="section-kicker">讀完想一想</p>
+        <h2 id="promptTitle">故事裡最珍貴的禮物是什麼？</h2>
+        <p>是包裝漂亮的禮物，還是一句謝謝、一次合作，或陪伴彼此的時間？和同學分享你的發現。</p>
+      </div>
+      <button class="primary-button light" id="randomBook" type="button">幫我抽一本</button>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>資料說明</strong>　本頁依「聖誕節書展書目11511更新」與 2026 年 11 月 25 日修訂清單整理。相同書名已合併顯示；僅憑書名無法確認版本的舊書，標示為「待實體書確認」，建議由版權頁補上 ISBN、作者與出版社。</p>
+    <p>書籍封面版權屬原作者與出版社所有，僅作館藏書展與閱讀推廣用途。資料更新：2026 年 11 月 25 日。</p>
+  </footer>
+
+  <dialog class="book-dialog" id="bookDialog" aria-labelledby="dialogTitle">
+    <button class="close-button" id="closeDialog" type="button" aria-label="關閉書籍詳情">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <dialog class="reading-dialog" id="readingDialog" aria-labelledby="readingTitle">
+    <button class="close-button" id="closeReadingList" type="button" aria-label="關閉閱讀清單">×</button>
+    <h2 id="readingTitle">我的閱讀清單</h2>
+    <p>把這份清單帶到書展，找到想讀的書。</p>
+    <ol id="readingListItems"></ol>
+    <div class="dialog-actions">
+      <button class="secondary-button" id="clearReadingList" type="button">清空清單</button>
+      <button class="primary-button" id="printReadingList" type="button">列印清單</button>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
